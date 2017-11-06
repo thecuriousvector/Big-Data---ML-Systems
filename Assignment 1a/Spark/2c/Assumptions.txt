@@ -1,0 +1,5 @@
+Assumptions considered for matrix multiplication:  
+i)   Matrix and vector are stored in two seperate files
+ii)  Each entry in matrix is represented as (row,column,entry)
+iii) Each entry in vector is represented as (row,entry)
+iv)  For the given input files, I've considered no of splits as 3 (hardcoded)

@@ -1,0 +1,23 @@
+hadoop fs -put $HOME/BigData/Assignments/1a/MatrixInput.txt /user/rdv253/MatrixInput.txt
+
+hadoop fs -put $HOME/BigData/Assignments/1a/VectorInput.txt /user/rdv253/VectorInput.txt
+
+export HADOOP_LIPATH=/opt/cloudera/parcels/CDH-5.11.1-1.cdh5.11.1.p0.4/lib
+
+javac -classpath $HADOOP_LIPATH/hadoop/*:$HADOOP_LIPATH/hadoop-0.20-mapreduce/*:$HADOOP_LIPATH/hadoop-hdfs/*   *.java
+
+
+jar cvf Multiplication2.jar *.class
+
+hadoop fs -rm -r /user/rdv253/MultOutput2
+
+hadoop jar Multiplication2.jar MatVecMul /user/rdv253/MatrixInput.txt /user/rdv253/VectorInput.txt /user/rdv253/MultOutput2
+
+
+hadoop fs -ls /user/rdv253/MultOutput2
+hadoop fs -cat /user/rdv253/MultOutput2/part-r-00000
+
+hadoop fs -getmerge /user/rdv253/MultOutput2 $HOME/BigData/Assignments/1a/MultOutput2.txt
+
+
+hadoop fs -rm /user/rdv253/MultOutput2.txt

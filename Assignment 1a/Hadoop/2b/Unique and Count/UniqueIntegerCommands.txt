@@ -1,0 +1,20 @@
+hadoop fs -put $HOME/BigData/Assignments/1a/RepeatInput.txt /user/rdv253/RepeatInput.txt
+
+export HADOOP_LIPATH=/opt/cloudera/parcels/CDH-5.11.1-1.cdh5.11.1.p0.4/lib
+
+javac -classpath $HADOOP_LIPATH/hadoop/*:$HADOOP_LIPATH/hadoop-0.20-mapreduce/*:$HADOOP_LIPATH/hadoop-hdfs/*   *.java
+
+
+jar cvf UniqueInteger.jar *.class
+
+hadoop fs -rm -r /user/rdv253/UniqueOutput
+hadoop jar UniqueInteger.jar UniqueInteger /user/rdv253/RepeatInput.txt /user/rdv253/UniqueOutput
+
+
+hadoop fs -ls /user/rdv253/UniqueOutput
+hadoop fs -cat /user/rdv253/UniqueOutput/part-r-00000
+
+hadoop fs -getmerge /user/rdv253/UniqueOutput $HOME/BigData/Assignments/1a/UniqueOutput.txt
+
+
+hadoop fs -rm /user/rdv253/UniqueOutput.txt

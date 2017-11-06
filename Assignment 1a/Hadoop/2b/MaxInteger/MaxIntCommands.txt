@@ -1,0 +1,21 @@
+hadoop fs -put $HOME/BigData/Assignments/1a/MaxIntegerInput.txt /user/rdv253/MaxIntegerInput.txt
+
+export HADOOP_LIPATH=/opt/cloudera/parcels/CDH-5.11.1-1.cdh5.11.1.p0.4/lib
+
+javac -classpath $HADOOP_LIPATH/hadoop/*:$HADOOP_LIPATH/hadoop-0.20-mapreduce/*:$HADOOP_LIPATH/hadoop-hdfs/*   *.java
+
+
+jar cvf MaxInteger.jar *.class
+
+hadoop fs -rm -r /user/rdv253/MaxIntegerOutput
+
+hadoop jar MaxInteger.jar MaxInteger /user/rdv253/MaxIntegerInput.txt /user/rdv253/MaxIntegerOutput
+
+
+hadoop fs -ls /user/rdv253/MaxIntegerOutput
+hadoop fs -cat /user/rdv253/MaxIntegerOutput/part-r-00000
+
+hadoop fs -getmerge /user/rdv253/MaxIntegerOutput$HOME/BigData/Assignments/1a/MaxIntegerOutput.txt
+
+
+hadoop fs -rm -r /user/rdv253/MaxIntegerOutput.txt
